@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document Classification</title>
+
+    <!-- Office JavaScript API -->
+    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
+
+    <!-- Local files -->
+    <link rel="stylesheet" href="taskpane.css" />
+</head>
+
+<body>
+    <div class="ms-welcome">
+        <header class="ms-welcome__header ms-bgColor-neutralLighter ms-fontColor-neutralPrimary">
+            <div class="logo-placeholder">🔒</div>
+            <h1 class="ms-fontSize-su ms-fontWeight-light">Document Classification</h1>
+        </header>
+        
+        <main id="app-body" class="ms-welcome__main">
+            <div id="classification-status" class="status-section">
+                <h2 class="ms-fontSize-l ms-fontWeight-semilight ms-fontColor-neutralPrimary">Current Status</h2>
+                <div id="current-classification" class="classification-display">
+                    <span id="classification-text">Not Classified</span>
+                    <span id="classification-level" class="classification-badge unclassified">UNCLASSIFIED</span>
+                </div>
+            </div>
+
+            <div id="classification-form" class="form-section">
+                <h2
+ class="ms-fontSize-l ms-fontWeight-semilight ms-fontColor-neutralPrimary">Set Classification</h2>
+                
+                <div class="classification-dropdown-container">
+                    <label for="classification-primary" class="dropdown-label">Classification Level:</label>
+                    <select id="classification-primary" class="classification-dropdown">
+                        <option value="">Select Classification...</option>
+                        <option value="public">Public</option>
+                        <option value="confidential">Confidential</option>
+                        <option value="secret">Secret</option>
+                        <option value="topsecret">Top Secret</option>
+                    </select>
+                    
+                    <div id="sublevel-container" class="sublevel-container" style="display: none;">
+                        <label for="classification-sublevel" class="dropdown-label">User Type:</label>
+                        <select id="classification-sublevel" class="classification-dropdown">
+                            <option value="">Select User Type...</option>
+                            <option value="internal">Internal User</option>
+                            <option value="external">External User</option>
+                        </select>
+                    </div>
+                    
+                    <div id="classification-preview" class="classification-preview" style="display: none;">
+                        <strong>Selected:</strong> <span id="preview-text"></span>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button id="set-classification" class="ms-Button ms-Button--primary" disabled>
+                        <span class="ms-Button-label">Set Classification</span>
+                    </button>
+                    <!--
+                    <button id="remove-classification" class="ms-Button ms-Button--default">
+                        <span class="ms-Button-label">Remove Classification</span>
+                    </button>
+					-->
+                </div>
+            </div>
+
+            <div id="actions-section" class="actions-section">
+                <h2 class="ms-fontSize-l ms-fontWeight-semilight ms-fontColor-neutralPrimary">Document Actions</h2>
+                
+                <div class="button-group">
+                    <button id="save-document" class="ms-Button ms-Button--primary">
+                        <span class="ms-Button-label">Save Document</span>
+                    </button>
+                    
+                    <button id="refresh-status" class="ms-Button ms-Button--default">
+                        <span class="ms-Button-label">Refresh Status</span>
+                    </button>
+                </div>
+            </div>
+
+            <div id="compliance-info" class="info-section">
+                <h3 class="ms-fontSize-m ms-fontWeight-semilight">Compliance Notice</h3>
+                <p class="ms-fontSize-s">All documents must be classified before saving or sharing. Classification helps ensure proper handling and protection of information.</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Classification Modal -->
+    <div id="classification-modal" class="classification-modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Document Classification Required</h3>
+                <button id="modal-close" class="close-button">&times;</button>
+            </div>
+            
+            <div class="modal-body">
+                <p id="modal-message">Please select a classification level for this document:</p>
+                
+                <div class="modal-classification-dropdown">
+                    <label for="modal-classification-primary" class="dropdown-label">Classification Level:</label>
+                    <select id="modal-classification-primary" class="classification-dropdown">
+                        <option value="">Select Classification...</option>
+                        <option value="public">Public</option>
+                        <option value="confidential">Confidential</option>
+                        <option value="secret">Secret</option>
+                        <option value="topsecret">Top Secret</option>
+                    </select>
+                    
+                    <div id="modal-sublevel-container" class="sublevel-container" style="display: none;">
+                        <label for="modal-classification-sublevel" class="dropdown-label">User Type:</label>
+                        <select id="modal-classification-sublevel" class="classification-dropdown">
+                            <option value="">Select User Type...</option>
+                            <option value="internal">Internal User</option>
+                            <option value="external">External User</option>
+                        </select>
+                    </div>
+                    
+                    <div id="modal-classification-preview" class="classification-preview" style="display: none;">
+                        <strong>Selected:</strong> <span id="modal-preview-text"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button id="modal-confirm" class="ms-Button ms-Button--primary" disabled>
+                    <span class="ms-Button-label">Confirm</span>
+                </button>
+                <button id="modal-cancel" class="ms-Button ms-Button--default">
+                    <span class="ms-Button-label">Cancel</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="taskpane.js"></script>
+</body>
+</html>
